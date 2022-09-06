@@ -1,0 +1,102 @@
+%Discusión Grupal Programación Declarativa 2022
+%Ing. Guillermo Cortes y Jaime Serrano
+%Grupo:
+% -> Herson Alexander Reyes Rivas 00216519
+% -> Alberto Enrique de León Quiñonez 00087919
+% -> Dylan Moises Melendez Linares 00087018
+% -> Natalia Alexandra Solórzano Paz 00120319
+
+% EJERCICIO 1
+% Pepito se escapó del colegio y se fue con sus amigos al centro
+% comercial. Estando allí se da cuenta de que sus papás también han ido
+% de compras. Elabore una base de conocimiento que le ayude a Pepito a
+% no encontrarse con sus papás en ningún lugar del centro comercial. Es
+% decir, la base de conocimiento debe conocer los locales y decirle a
+% Pepito en qué lugares del centro comercial podrá estar sin ser visto.
+% En muchas ocasiones su papá y su mamá deciden separarse e ir a locales
+% distintos para terminar las compras más rápido. Elabore una cláusula
+% de aridad tres a la que se le indique por medio de los dos primeros
+% argumentos en cuál local está su mamá y en cuál está su papá. En el
+% tercer argumento de la cláusula se devuelven los locales en los que
+% Pepito puede estar. Registre en la base de conocimientos locales como:
+% Foodcourt, Zapatería Lee Shoes, gradas eléctricas, Super Selectos,
+% Ferretaría Freund, Cinépolis, La Nevería, Torogoz, Dollar City, etc.
+
+% Base de conocimiento:
+local(foodcourt).
+local(zapateria_lee_shoes).
+local(gradas_electricas).
+local(super_selectos).
+local(ferreteria_freund).
+local(cinepolis).
+local(la_neveria).
+local(torogoz).
+local(dollar_city).
+
+% Validación de nombre no valido
+puede_estar(X,Y,_):-
+    (not(local(X));not(local(Y))),
+    writeln('Nombre de local no valido.'),
+    !.
+
+% Verificación que el lugar seleccionado no sea el mismo al de la respuesta
+puede_estar(X,Y,Z):-
+    ((local(X)),(local(Y))),
+    local(Z),
+    not(==(X,Z)),
+    not(==(Y,Z)).
+
+% EJERCICIO 2
+% El enemigo de mi enemigo, es mi amigo. La historia de la
+% humanidad está plagada de guerras. Reyes, presidentes, conquistadores
+% y estrategas de las batallas han debido conseguir, cuando es
+% necesario, aliados para vencer a su oponente. Elabore la cláusula de
+% Horn aliado/3 en la que los primeros dos argumentos son los oponentes,
+% y el tercer argumento es el aliado que necesita el primer oponente.
+% Obviamente, el objeto del tercer argumento debe ser enemigo del
+% segundo. Para mostrar un posible aliado, este no necesariamente debe
+% estar en paz con el primero, es decir, también pueden ser enemigos.
+
+
+% Base de conocimiento:
+enemigo(rusia,ucrania).
+enemigo(ucrania,rusia).
+enemigo(rusia,japon).
+enemigo(japon,rusia).
+enemigo(rusia,usa).
+enemigo(usa,rusia).
+enemigo(usa,china).
+enemigo(china,usa).
+enemigo(usa,venezuela).
+enemigo(venezuela,usa).
+
+aliado(_,Y,_):-
+    not(enemigo(Y,_)),
+    writeln('No es posible encontrar un aliado'),
+    !.
+
+aliado(X,Y,Z):-
+    \==(X,Y),
+    enemigo(Y,Z),
+    not(==(X,Z)).
+
+aliado(X,_,Z):-!.
+
+% EJERCICIO 3
+% Elabore una cláusula de aridad 2 que reciba un número
+% entero en el primer argumento y en el segundo indique la suma de los
+% digitos que contiene el número proporcionado. Por ejemplo, si se
+% consulta: ?- sumardigitos(837, X), entonces Prolog responde: X = 18.
+
+sumardigitos(N,M):-
+    number(N),
+    sumar(N,0,M).
+
+sumar(0,M,M):- !.
+
+sumar(N,V,M):-
+    >(N,0),
+    is(C,//(N,10)),
+    is(Res, mod(N,10)),
+    is(V1, +(V,Res)),
+    sumar(C,V1,M).
