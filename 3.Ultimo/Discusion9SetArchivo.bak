@@ -1,0 +1,30 @@
+#lang racket
+;Elabore una funcion que almacene en un archivo
+; los datos que se leen desde teclado, uno por fila,
+; hasta introducir cero
+
+(define (leer-hasta-cero)
+  ;Apertura
+  (define datos-de-teclado (open-output-file "datos-de-teclado-txt" #:mode 'text #:exists 'replace))
+  ;Procesamiento
+  (leer-hasta-cero-rec datos-de-teclado)
+  ;Cierre
+  (close-output-port datos-de-teclado)
+  )
+
+(define (leer-hasta-cero-rec flujo)
+  (local
+    (
+    (define dato (read))
+    )
+  (if (not (equal? dato 0))
+      (begin
+        (display dato flujo)
+        (display "\n" flujo)
+        ;(newline flujo)
+        (leer-hasta-cero-rec flujo)
+        )
+      (void)
+      )
+    )
+  )

@@ -1,0 +1,40 @@
+numbers([], 0, 0).
+numbers([H|T], X, Y) :-
+    % you compute the rest of the list
+    numbers(T, X1, Y1),
+    % you increment the correct number
+    (H > 0
+    -> X is X1 + 1, Y1 = Y
+    ;  H < 0
+    ->  X = X1, Y is Y1+1
+    ;   X = X1, Y1 = Y).
+
+
+positiveNegative:-
+    analizar_doc(P, I),
+    write('Cantidad de Pares: '), writeln(P),
+    write('Cantidad de Impares: '), writeln(I).
+
+analizar_doc(P, I):-
+    open('numeros.txt', read, Numeros),
+    analizar(Numeros, P, I),
+    close(Numeros).
+
+analizar(Archivo, P, I):-
+    read(Archivo, N),
+    validar(Archivo, N, P, I).
+
+validar(Archivo, N, P, I):-
+    \==(N, end_of_file),
+    =:=(0, mod(N,2)),
+    analizar(Archivo, P1, I),
+    is(P, +(P1, 1)), !.
+
+validar(Archivo, N, P, I):-
+    \==(N, end_of_file),
+    =\=(0, mod(N,2)),
+    analizar(Archivo, P, I1),
+    is(I, +(I1, 1)), !.
+
+validar(_,N,0,0):-
+    ==(N, end_of_file).

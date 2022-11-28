@@ -1,0 +1,24 @@
+#lang racket
+; producto de una constante por una funcion
+; x*2 => 2*x^2/2
+(define (integral x expresion)
+  (cond
+    ((number? expresion) (list '* expresion x))
+    ((equal? expresion x) (list '* (/ 1 2) (list 'expt x 2)))
+    (else
+     (let
+         (
+          (u (second expresion))
+          (v (third expresion))
+          )
+       (case (first expresion)
+         ((*)
+          (cond
+            ((and (number? u) (equal? v x)) (list '* u (integral x v)))
+            )
+          )
+         )
+       )
+     )
+    )
+  )

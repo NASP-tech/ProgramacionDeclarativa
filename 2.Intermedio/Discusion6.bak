@@ -1,0 +1,11 @@
+#lang racket
+; Discusion 6
+; Dado un entero que representa un anio, diga si es o no bisiesto.
+
+(define (bisiesto numero)
+  (if (and (= 0 (modulo numero 4)) (or (not (=0 (modulo numero 100))) (= (modulo numero 400))))
+      (display "El anio es bisiesto")
+      (display "El anio no es bisiesto")
+
+      )
+  )

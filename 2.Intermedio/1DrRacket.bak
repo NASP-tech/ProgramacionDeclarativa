@@ -1,0 +1,7 @@
+#lang racket
+
+(define (longcirc r)
+   (*(* 2 pi) r)
+   ;solo devuelve lo ultimo que esta
+   ;(+ 5 3)
+)

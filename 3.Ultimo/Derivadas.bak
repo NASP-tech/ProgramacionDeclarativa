@@ -1,0 +1,24 @@
+#lang racket
+; '(x) = (quote x)
+; (eval '(+ 5 3)) = 8
+
+; Ejercicio Encontrar la derivada de un constante
+; Debe devolver 0 para una constante
+(define (derivada x expression)
+  (if (number? expression)
+      0
+      (display "La expression no puede derivarse")
+      )
+  )
+; Para Probarlo
+; (derivada 'x 5)
+
+; Ejercicio Encontrar la derivada de un x
+; Debe devolver 1 para una x
+
+(define (derivada x expression)
+  (if (number? expression)
+      0
+      (display "La expression no puede derivarse")
+      )
+  )

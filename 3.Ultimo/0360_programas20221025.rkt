@@ -1,0 +1,181 @@
+#lang racket
+
+; Definiendo mi propio identificador global:
+(define miValor 15)
+
+; Función que utiliza el identificador global:
+(define (usarMiValor)
+  (display miValor)
+)
+
+
+; Definir un identificador dentro de
+; una función:
+
+(define (ejemploLocalDefine01)
+  (local
+    (
+     (define unValor 5)
+     (define otroValor 8)
+    )
+    (* unValor otroValor)
+  )
+)
+
+; Utilización de identificadores para
+; determianr el valor de un nuevo identificador:
+(define (ejemploLocalDefine02)
+  (local
+    (
+     (define a 3)
+     (define b 7)
+     (define c (+ a 10))
+    )
+    (+ a b c)
+  )
+)
+
+
+; Utilización de identificadores para
+; determianr el valor de un nuevo identificador:
+; ESTO NO SE PUEDE HACER
+#|(define (ejemploLocalDefine03)
+  (local
+    (
+     (define a 3)
+     (define b 7)
+     (define c (+ a 10))
+     (define a 25)
+    )
+    (+ a b c)
+  )
+)|#
+
+
+; Re-asignando valor a un identificador:
+(define (ejemploLocalDefine04)
+  (local
+    (
+     (define a (* 3 10))
+     (define b (+ a 15))
+    )
+    (display "La suma con el primer valor de a es: ")
+    (display (+ a b))
+    (newline)
+    (set! a 40)
+    (display "La suma con el segundo valor de a es: ")
+    (display (+ a b))
+  )
+)
+
+
+; Utilizando read para reasignar el valor
+; de un identificador:
+(define (ejemploLocalDefine05)
+  (local
+    (
+     (define a (* 3 10))
+     (define b (+ a 15))
+    )
+    (set! a (read))
+    (+ a b)
+  )
+)
+
+
+; Reasignando valores a identificadores
+; con un solo comando de reasignación:
+(define (ejemploLocalDefine06)
+  (local
+    (
+     (define a (* 3 10))
+     (define b (+ a 15))
+     (define c 7)
+    )
+    (display "La suma con los valores originales es: ")
+    (display (+ a b c ))
+    (set!-values (a b c) (values 100 200 300))
+    (newline)
+    (display "La suma con los valores cambiados es: ")
+    (display (+ a b c))
+  )
+)
+
+; Devolver varios valores:
+(define (devolverTresValores)
+  (list "uno" "dos" "tres")
+)
+
+
+; Devolver varios valores:
+(define (devolverTresValores02)
+  (values "uno" "dos" "tres")
+)
+
+
+; Usando let para definir identificadores:
+(define (ejemploLet01)
+  (let
+      (
+       (a 5)
+       (b (+ 3 3))
+      )
+      (* 10 a b)
+  )
+)
+
+
+; NO se permite utilizar un identificador
+; para calcular el valor de otro identificador
+#|(define (ejmLet_03)
+  (let
+      (
+       (a 10)
+       (b (sqr 4))
+       (c (* 2 a)) <==
+      )
+      (* a b c)
+  )
+)|#
+
+
+; Eliminar un carácter dentro de una cadena.
+; Desplegamos lo que nos piden:
+(define (borrarCar01 cad pos)
+  (let*
+      (
+       (subCad1 (substring cad 0 pos))
+       (subCad2 (substring cad (+ pos 1) (string-length cad)))
+       (subCad3 (string-append subCad1 subCad2))
+      )
+    (display subCad1)
+    (newline)
+    (display subCad2)
+    (newline)
+    (display subCad3)(newline)
+  )
+)
+
+
+; Eliminar un carácter dentro de una cadena.
+; RETORNAMOS lo que nos piden:
+(define (borrarCar02 cad pos)
+  (let*
+      (
+       (subCad1 (substring cad 0 pos))
+       (subCad2 (substring cad (+ pos 1) (string-length cad)))
+       (subCad3 (string-append subCad1 subCad2))
+      )
+    (values subCad1 subCad2 subCad3)
+  )
+)
+
+; El problema anterior, sin identificadores:
+(define (borrarCar03 cad pos)
+  (values
+   (substring cad 0 pos)
+   (substring cad (add1 pos) (string-length cad))
+   (string-append (substring cad 0 pos) (substring cad (add1 pos) (string-length cad))))
+)
+
+

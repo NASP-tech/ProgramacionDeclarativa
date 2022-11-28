@@ -1,0 +1,44 @@
+#lang racket
+; Programacion Declarativa 02/2022
+; Ing. Guillermo Cortes y Jaime Serrano
+; Natalia Alexandra Solorzano Paz 00120319
+; Herson Reyes 
+; Alberto de Leon
+; Dylan Melendez
+
+
+; EJERCICIO 1
+;1. Dada una lista, que se recibe como argumento, retornar otra con los 
+;datos en orden inverso. No utilice la función predefinida reverse.
+(define (CodersList Cod)
+  (CodersReverseList Cod '()))
+
+(define (CodersReverseList Cod L)
+  (if (not (zero? (string-length Cod)))
+      (CodersReverseList (substring Cod 1 (string-length Cod)) (cons (string-ref Cod 0) L ))
+      L
+      ))
+; Para probarlo
+;(CodersList "Coders List")
+;'(#\t #\s #\i #\L #\space #\s #\r #\e #\d #\o #\C)
+
+
+; EJERCICIO 2
+;2. Elabore una función que reciba tres listas de igual longitud y cree una 
+;sola lista en la que cada elemento de ella es una sublista integrada por los 
+;elementos de la misma posición de las tres listas proporcionadas. 
+;Ejemplo: L1=[1,2,3], L2=[4,5,6], L3=[7,8,9], 
+;LF=[[1,4,7],[2,5,8],[3,6,9]].
+
+
+
+
+; EJERCICIO 3
+; 3. Retornar la suma de todos los elementos de una lista
+(define (CodersNumbers CodL)
+  (if (empty? CodL) 0
+      (+ (first CodL) (CodersNumbers (rest CodL))))
+  )
+
+; Para probarlos
+;(CodersNumbers '(7 3 8 9 10))

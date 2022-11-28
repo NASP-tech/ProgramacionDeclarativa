@@ -1,0 +1,31 @@
+seis_amigos(Medio):-
+    =(Medio, [Auto, Avion, Tren]),
+    =(Auto, [_,_]),
+    =(Avion, [_,_]),
+    =(Tren, [_,_]),
+
+    transporte(alejandro, MedioAle, Medio),
+    \==(MedioAle, auto),
+    transporte(benito, MedioBen, Medio),
+    \==(MedioBen, avion),
+    ==(MedioAle, MedioBen),
+
+    transporte(andres, avion, Medio),
+    transporte(carlos, MedioCar, Medio),
+    \==(MedioCar, avion),
+    transporte(dario,MedioDar, Medio),
+    \==(MedioDar, MedioCar),
+
+    transporte(tomas, _, Medio), !.
+
+
+transporte(Amigo, auto, [[Amigo,_], _, _]).
+transporte(Amigo, auto, [[_,Amigo],_,_]).
+
+transporte(Amigo, avion, [_,[Amigo,_],_]).
+transporte(Amigo, avion, [_,[_, Amigo],_]).
+
+transporte(Amigo, tren, [_,_,[Amigo, _]]).
+transporte(Amigo, tren, [_,_,[_, Amigo]]).
+
+

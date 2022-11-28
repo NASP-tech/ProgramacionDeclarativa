@@ -1,0 +1,15 @@
+#lang racket
+; Imprimir cada Elemento de
+; una lista, linea por linea
+
+(define (imprimeEltosL L)
+  (if (not (empty? L))
+     (begin
+       (display (first L))
+       (newline)
+       (imprimirEltosL (rest L))
+       )
+     (newline)
+     )
+  )
+
